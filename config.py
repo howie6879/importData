@@ -5,7 +5,7 @@ configDic = {
     'host': 'localhost',
     'port': 3306,
     'user': 'root',
-    'password': "19950912",
+    'password': "",
     'charset': 'utf8',
     'db': "sbird",
 }
