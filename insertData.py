@@ -65,7 +65,7 @@ class insertData(object):
         success, fail = 0, 0
         column = ','.join(list(map(lambda x: x.lower(), df.keys())))
         for num in range(len(df.values)):
-            row = ','.join(list(map(lambda x: self.db.conn.escape(str(x)), df.values[num])))
+            row = ','.join(list(map(lambda x: self.db.conn.escape(str(x).strip()), df.values[num])))
             insert = self.db.insertData(table=self.db_table, field=column.strip(), values=row)
             if insert:
                 # print("第%s行插入成功" % (num+1))
@@ -89,7 +89,7 @@ class insertData(object):
         table = PrettyTable(["ID", "FILE"])
         for style in allStyle:
             targetFile = [os.path.join(self.path, eachFile) for eachFile in os.listdir(self.path) if
-                          style in os.path.splitext(eachFile)[1]]
+                          style in os.path.splitext(eachFile)[1] and '~' not in eachFile]
             if not targetFile:
                 logging.warning(style + "文件不存在...")
                 exit()
@@ -102,5 +102,3 @@ class insertData(object):
                 table.add_row([num, file])
             print(table)
         return allFile
-
-
